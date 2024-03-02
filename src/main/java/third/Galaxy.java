@@ -1,6 +1,8 @@
 package third;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 import lombok.*;
 
 @AllArgsConstructor
@@ -11,12 +13,12 @@ public class Galaxy {
     public Set<Planet> getPlanetToSayHi() {
         return planets.stream()
                 .filter(Planet::isAvailableToReceiveGreeting)
-                .collect(java.util.stream.Collectors.toSet());
+                .collect(Collectors.toSet());
     }
 
     public Set<Race> getRaceThatCanSayHi() {
         return races.stream()
                 .filter(Race::isCanSayHi)
-                .collect(java.util.stream.Collectors.toSet());
+                .collect(Collectors.toSet());
     }
 }

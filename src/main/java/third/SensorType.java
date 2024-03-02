@@ -8,6 +8,5 @@ public enum SensorType {
     GLOSSY("Глянцевый"),
     PETROLEUM("Нефтяной");
 
-    @Getter
     private final String name;
 }
