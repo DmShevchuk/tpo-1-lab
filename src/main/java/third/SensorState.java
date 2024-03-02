@@ -7,7 +7,8 @@ import lombok.*;
 public enum SensorState {
     FLASHING("Мигающий"),
     SILENT("Молчащий"),
-    BROKEN("Сломанный");
+    BROKEN("Сломанный"),
+    DISCHARGED("Разряженный");
 
     private final String name;
 }

@@ -2,6 +2,7 @@ package third;
 
 import lombok.*;
 
+@Getter
 @AllArgsConstructor
 public enum SensorType {
     SUB_ETHEREAL("Суб-эфирный"),

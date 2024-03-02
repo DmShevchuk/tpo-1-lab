@@ -8,8 +8,9 @@ public class Human {
     private boolean sadnessInTheEyes;
     private boolean cottonInTheEars;
     private Sensor sensor;
+    private Planet planet;
 
-    private void stayAndLookAtTheSky() {
+    void stayAndLookAtTheSky() {
         if (sadnessInTheEyes && cottonInTheEars) {
             System.out.println("Лишь один человек стоял и смотрел в небо с грустью в глазах и с ватой в ушах");
         } else {
@@ -17,7 +18,7 @@ public class Human {
         }
     }
 
-    private boolean knowsWhatsGoingOn() {
+    boolean knowsWhatsGoingOn() {
         if (sensor == null) {
             throw new RuntimeException("У человека нет сенсора!");
         }
@@ -25,7 +26,7 @@ public class Human {
                 && SensorState.FLASHING == sensor.getState();
     }
 
-    private String getReadableSignalFromSensor() {
+    String getReadableSignalFromSensor() {
         var signalMessage = sensor.getSignalMessage();
         if (signalMessage == null) {
             throw new RuntimeException("Не удалось получить сигнал сенсора!");

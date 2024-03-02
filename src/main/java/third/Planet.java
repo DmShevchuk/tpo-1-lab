@@ -3,6 +3,7 @@ package third;
 import lombok.*;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Planet {
 
