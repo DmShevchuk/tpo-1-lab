@@ -3,6 +3,7 @@ import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Human {
 
     private boolean sadnessInTheEyes;

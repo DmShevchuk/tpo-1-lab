@@ -287,36 +287,73 @@ public class TextTest {
 
     @Nested
     class HumanTest {
+
+        Sensor buildAndGetDefaultSensor(SensorState state) {
+            return Sensor.builder()
+                    .type(SensorType.SUB_ETHEREAL)
+                    .state(state)
+                    .name("sensor")
+                    .signalMessage("signal")
+                    .build();
+        }
+
         @ParameterizedTest
         @EnumSource(value = SensorState.class)
         void stayAndLookAtTheSkyWithCottonAndSadnessInTheEyes(SensorState state) {
-            Human human = new Human(true, true, new Sensor(SensorType.SUB_ETHEREAL, state, "sensor", "signal"),  new Planet());
+            var human = Human.builder()
+                    .sadnessInTheEyes(true)
+                    .cottonInTheEars(true)
+                    .sensor(buildAndGetDefaultSensor(state))
+                    .planet(new Planet())
+                    .build();
             assertDoesNotThrow(human::stayAndLookAtTheSky);
         }
 
         @ParameterizedTest
         @EnumSource(value = SensorState.class, names = {"FLASHING"})
         void knowsWhatsGoingOnWithValidSensorState(SensorState state) {
-            Human human = new Human(true, true, new Sensor(SensorType.SUB_ETHEREAL, state, "sensor", "signal"),  new Planet());
+            var human = Human.builder()
+                    .sadnessInTheEyes(true)
+                    .cottonInTheEars(true)
+                    .sensor(buildAndGetDefaultSensor(state))
+                    .planet(new Planet())
+                    .build();
             assertTrue(human.knowsWhatsGoingOn());
         }
 
         @ParameterizedTest
         @EnumSource(value = SensorState.class, names = {"BROKEN", "DISCHARGED"})
         void knowsWhatsGoingOnWithInvalidSensorState(SensorState state) {
-            Human human = new Human(true, true, new Sensor(SensorType.SUB_ETHEREAL, state, "sensor", "signal"),  new Planet());
+            var human = Human.builder()
+                    .sadnessInTheEyes(true)
+                    .cottonInTheEars(true)
+                    .sensor(buildAndGetDefaultSensor(state))
+                    .planet(new Planet())
+                    .build();
             assertFalse(human.knowsWhatsGoingOn());
         }
 
         @Test
         void getReadableSignalFromSensor_withValidSignalMessage() {
-            Human human = new Human(true, true, new Sensor(SensorType.SUB_ETHEREAL, SensorState.FLASHING, "sensor", Base64Encoder.encodeToBase64("decoded_signal")),  new Planet());
+            var sensor = buildAndGetDefaultSensor(SensorState.FLASHING);
+            sensor.setSignalMessage(Base64Encoder.encodeToBase64("decoded_signal"));
+            var human = Human.builder()
+                    .sadnessInTheEyes(true)
+                    .cottonInTheEars(true)
+                    .sensor(sensor)
+                    .planet(new Planet())
+                    .build();
             assertEquals("decoded_signal", human.getReadableSignalFromSensor());
         }
 
         @Test
         void stayAndLookAtTheSkyWithoutCottonOrSadnessInTheEyes() {
-            Human human = new Human(false, true, new Sensor(SensorType.SUB_ETHEREAL, SensorState.FLASHING, "sensor", "signal"),  new Planet());
+            var human = Human.builder()
+                    .sadnessInTheEyes(false)
+                    .cottonInTheEars(true)
+                    .sensor(buildAndGetDefaultSensor(SensorState.FLASHING))
+                    .planet(new Planet())
+                    .build();
             assertThrows(RuntimeException.class, human::stayAndLookAtTheSky);
         }
 
@@ -328,7 +365,14 @@ public class TextTest {
 
         @Test
         void getReadableSignalFromSensorWithNullSignalMessage() {
-            Human human = new Human(true, true, new Sensor(SensorType.SUB_ETHEREAL, SensorState.FLASHING, "sensor", null),  new Planet());
+            var sensor = buildAndGetDefaultSensor(SensorState.FLASHING);
+            sensor.setSignalMessage(null);
+            var human = Human.builder()
+                    .sadnessInTheEyes(true)
+                    .cottonInTheEars(true)
+                    .sensor(sensor)
+                    .planet(new Planet())
+                    .build();
             assertThrows(RuntimeException.class, human::getReadableSignalFromSensor);
         }
 
