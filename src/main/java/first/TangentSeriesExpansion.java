@@ -3,38 +3,34 @@ package first;
 
 public class TangentSeriesExpansion {
 
-    // Метод для вычисления факториала числа
-    public static int factorial(int n) {
-        if (n == 0)
-            return 1;
-        else
-            return n * factorial(n - 1);
-    }
-
-    // Метод для вычисления степени числа
-    public static double power(double x, int n) {
-        if (n == 0)
-            return 1;
-        else if (n % 2 == 0)
-            return power(x * x, n / 2);
-        else
-            return x * power(x * x, (n - 1) / 2);
-    }
-
-    // Метод для вычисления тангенса через степенной ряд
-    public static double tangent(double x, int n) {
-        double result = 0;
-        for (int i = 0; i < n; i++) {
-            result += (power(-1, i) * power(x, 2 * i + 1)) / factorial(2 * i + 1);
+    public static double tg(double x) {
+        if (x == Math.PI / 2) {
+            return Double.POSITIVE_INFINITY;
         }
-        return result;
-    }
+        else if (x == -Math.PI / 2) {
+            return Double.NEGATIVE_INFINITY;
+        }
 
-    public static void main(String[] args) {
-        double x = 1.5; // Введите значение аргумента x
-        int n = 10; // Количество членов ряда
+        double eps = 0.1;
 
-        double tangentValue = tangent(x, n);
-        System.out.println("Значение тангенса(" + x + "): " + tangentValue);
+        if (x >= Math.PI / 2) {
+            while (x >= Math.PI / 2) x -= Math.PI;
+        }
+        else if (x <= -Math.PI / 2) {
+            while (x <= -Math.PI / 2) x += Math.PI;
+        }
+
+        double sum = x;
+        double previousSum = Integer.MIN_VALUE;
+        int n = 2;
+
+        while (Math.abs(sum - previousSum) >= eps) {
+            previousSum = sum;
+            var decimal = BernoulliNumber.bernouilli(2 * n);
+            double bernouilliCoefficient = (double) decimal.getNumeratorAsLong() / decimal.getDenominatorAsLong();
+            sum += (bernouilliCoefficient * (Math.pow(-4, n)) * (1 - Math.pow(4, n)) / Factorial.fact(2L * n)) * (Math.pow(x, 2 * n - 1));
+            n++;
+        }
+        return sum;
     }
 }
