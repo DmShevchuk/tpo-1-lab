@@ -42,8 +42,8 @@ jacocoTestReport {
     def classes = sourceSets.main.collect {
         it.output.asFileTree.matching {
             include("**/first/**")
-            include("**/third/**")
             include("**/second/**")
+            include("**/third/**")
         }
     }
 

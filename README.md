@@ -20,7 +20,7 @@
 ```
 
 ## Диаграмма классов
-![img.png](reports/img.png)
+![class_diagram.png](reports/images/class_diagram.png)
 
 ## Тестовое покрытие
-![img_1.png](reports/img_1.png)
+![test_coverage.png](reports/images/test_coverage.png)
