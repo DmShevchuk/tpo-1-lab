@@ -92,7 +92,6 @@ public class SplayTree {
         }
 
         if (root.left == null) {
-            temp = root;
             root = root.right;
         }
         else {
