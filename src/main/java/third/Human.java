@@ -11,15 +11,14 @@ public class Human {
     private Sensor sensor;
     private Planet planet;
 
-    void stayAndLookAtTheSky() {
+    public String stayAndLookAtTheSky() {
         if (sadnessInTheEyes && cottonInTheEars) {
-            System.out.println("Лишь один человек стоял и смотрел в небо с грустью в глазах и с ватой в ушах");
-        } else {
-            throw new RuntimeException("Нельзя смотреть в небо без грусти в глазах и/или ваты в ушах!");
+            return "Лишь один человек стоял и смотрел в небо с грустью в глазах и с ватой в ушах";
         }
+        throw new RuntimeException("Нельзя смотреть в небо без грусти в глазах и/или ваты в ушах!");
     }
 
-    boolean knowsWhatsGoingOn() {
+    public boolean knowsWhatsGoingOn() {
         if (sensor == null) {
             throw new RuntimeException("У человека нет сенсора!");
         }
@@ -27,7 +26,7 @@ public class Human {
                 && SensorState.FLASHING == sensor.getState();
     }
 
-    String getReadableSignalFromSensor() {
+    public String getReadableSignalFromSensor() {
         var signalMessage = sensor.getSignalMessage();
         if (signalMessage == null) {
             throw new RuntimeException("Не удалось получить сигнал сенсора!");
